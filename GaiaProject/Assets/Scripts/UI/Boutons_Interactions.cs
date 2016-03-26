@@ -1,20 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Boutons_Interactions : MonoBehaviour {
 
+
+	///////////////////////////////////////////////////////////////
+	/// Menu Principal
+
 	void Jouer () {
-		Debug.Log ("aaa");
-		Application.LoadLevel("Ecran_Jeu");
+		SceneManager.LoadScene("EcranJeu");
 	}
 
 	void A_propos () {
-		Debug.Log ("bbb");
-		Application.LoadLevel("Ecran_Propos");
+		SceneManager.LoadScene("EcranPropos");
 	}
 
 	void Quitter () {
-		Debug.Log ("ccc");
 		Application.Quit();
 	}
+
+	///////////////////////////////////////////////////////////////
+	/// A propos
+
+	void Retour () {
+		SceneManager.LoadScene("MenuPrincipal");
+	}
+
+
 }
