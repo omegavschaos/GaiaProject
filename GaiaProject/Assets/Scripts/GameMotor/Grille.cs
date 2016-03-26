@@ -24,6 +24,7 @@ public class Grille : MonoBehaviour
 
     private void GenerateTerrain()
     {
+        Vector3 diffVector3 = new Vector3(-0.5f + 1/(float)Largeur/2,0,-0.5f+1/(float)Longueur/2);
         _matrice = new Cellule[Largeur,Longueur];
         for (int i = 0; i < Largeur; i++)
         {
@@ -31,10 +32,10 @@ public class Grille : MonoBehaviour
             {
                 GameObject cell = Instantiate(_prefabTerrain);
                 cell.transform.SetParent(gameObject.transform,false);
-                cell.transform.localScale = new Vector3(x: 1/(float)Largeur, y: 1, z: 1/(float)Longueur);
+                cell.transform.localScale = new Vector3(x: 1/(float)Largeur, y: 0.1f, z: 1/(float)Longueur);
                 cell.name = "cellule " + i + " " + j;
                 _matrice[i,j] = cell.GetComponent<Cellule>();
-                //cell.transform.;
+                cell.transform.localPosition += diffVector3 + i * 1/(float)Largeur * cell.transform.right + j * 1/(float)Longueur * cell.transform.forward;
             }
         }
 
