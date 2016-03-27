@@ -11,7 +11,10 @@ public class Legume : MonoBehaviour
     [SerializeField]
     private int _recolte = 5;
 
-
+	public int LittleLife = 5;
+	public int MidLife = 5;
+	public int FullLife = 5;
+	public int Death = 5;
 
     public LegumeManager.Type Type;
 
@@ -60,7 +63,7 @@ public class Legume : MonoBehaviour
     {
 		
 		/*/
-        if (_state < 1)
+		if (_state == LegumeManager.State.Graine)
         {
             if (_timeState > LittleLife)
             {
