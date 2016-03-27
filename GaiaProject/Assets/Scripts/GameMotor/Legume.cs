@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 
 public class Legume : MonoBehaviour
@@ -20,6 +21,10 @@ public class Legume : MonoBehaviour
     public float Death = 5;
 
     public LegumeManager.Type Type;
+
+	public Engine.IntEvent OnState;
+
+	
 
     [SerializeField]
     private int _state = 0;
@@ -67,7 +72,7 @@ public class Legume : MonoBehaviour
             {
                 _spriteRenderer.sprite = State1;
                 _timeState = 0;
-                _state ++;
+				OnState.Invoke(++_state);
                 return;
             }
             return;
@@ -78,8 +83,8 @@ public class Legume : MonoBehaviour
             if (_timeState > MidLife)
             {
                 _spriteRenderer.sprite = State2;
-                _timeState = 0;
-                _state ++;
+				_timeState = 0;
+				OnState.Invoke(++_state);
                 return;
             }
             return;
@@ -90,8 +95,8 @@ public class Legume : MonoBehaviour
             if (_timeState > FullLife)
             {
                 _spriteRenderer.sprite = State3;
-                _timeState = 0;
-                _state++;
+				_timeState = 0;
+				OnState.Invoke(++_state);
                 return;
             }
             return;
@@ -100,7 +105,8 @@ public class Legume : MonoBehaviour
         if (_timeState > Death)
         {
             _spriteRenderer.sprite = State0;
-            _timeState = 0;
+			_timeState = 0;
+			OnState.Invoke(0);
             _state = 0;
         }
     }
@@ -108,12 +114,26 @@ public class Legume : MonoBehaviour
     public int Recolter()
     {
         if (_state == 2)
-        {
-            Destroy(gameObject);
+		{
+			if (_nbRecolte > 0) {
+				_nbRecolte--;
+				_spriteRenderer.sprite = State1;
+				_state = 1;
+				OnState.Invoke (1);
+			} else {
+				_spriteRenderer.sprite = State3;
+				_state = 3;
+				OnState.Invoke (3);
+			}
+
+			_timeState = 0;
+
             return Mathf.FloorToInt(_catalyse*_recolte);
         }
         else
-            return -1;
+			if(_state == 3)
+				return -Mathf.FloorToInt(_catalyse*_recolte);
+		return 0;
     }
 
 }

@@ -28,6 +28,10 @@ public class Grille : MonoBehaviour
         GenerateTerrain();
 	}
 
+	public static Grille GetInstance(){
+		return _instance;
+	}
+
     private void GenerateTerrain()
     {
         Vector3 diffVector3 = new Vector3(-0.5f + 1/(float)Largeur/2,0,-0.5f+1/(float)Longueur/2);

@@ -24,7 +24,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 494.07, y: 745.7395, z: -1512.3552}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,15 +41,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _catalyse: 1
+  _nbMaxRecolte: 3
+  _nbRecolte: 0
+  _recolte: 5
   LittleLife: 5
   MidLife: 5
   FullLife: 10
   Death: 5
-  Type: 0
+  Type: 1
   _state: 0
   State0: {fileID: 21300000, guid: e01f06dfba6589c4aa6c77929293934f, type: 3}
   State1: {fileID: 21300000, guid: aa20fe7ec84899047be58c4fa01b8102, type: 3}
-  State2: {fileID: 21300000, guid: c5c9717da98422f41a02f3ef8657fe10, type: 3}
+  State2: {fileID: 21300000, guid: 2583375cdbc715e4498bade548d0a59e, type: 3}
   State3: {fileID: 21300000, guid: 017aadbd31edfd14a93a916ae582557f, type: 3}
 --- !u!212 &21215812
 SpriteRenderer:
