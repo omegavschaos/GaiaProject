@@ -9,16 +9,9 @@ public class Legume : MonoBehaviour
     private float _catalyse = 1;
 
     [SerializeField]
-    private int _nbMaxRecolte = 3;
-    [SerializeField]
-    private int _nbRecolte;
-    [SerializeField]
     private int _recolte = 5;
 
-    public float LittleLife = 5;
-    public float MidLife = 5;
-    public float FullLife = 10;
-    public float Death = 5;
+
 
     public LegumeManager.Type Type;
 
@@ -27,7 +20,7 @@ public class Legume : MonoBehaviour
 	
 
     [SerializeField]
-    private int _state = 0;
+	private LegumeManager.State _state = LegumeManager.State.Graine;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -51,8 +44,8 @@ public class Legume : MonoBehaviour
 
     void Reset()
     {
-        _nbRecolte = _nbMaxRecolte;
-        _timeState = 0;
+        //_nbRecolte = _nbMaxRecolte;
+		_state = LegumeManager.State.Graine;
         _spriteRenderer.sprite = State0;
     }
 
@@ -65,7 +58,8 @@ public class Legume : MonoBehaviour
 
     void StateManage()
     {
-
+		
+		/*/
         if (_state < 1)
         {
             if (_timeState > LittleLife)
@@ -89,7 +83,7 @@ public class Legume : MonoBehaviour
             }
             return;
         }
-
+		//*
         if (_state < 3)
         {
             if (_timeState > FullLife)
@@ -109,10 +103,12 @@ public class Legume : MonoBehaviour
 			OnState.Invoke(0);
             _state = 0;
         }
+		//*/
     }
 
     public int Recolter()
     {
+		/*/
         if (_state == 2)
 		{
 			if (_nbRecolte > 0) {
@@ -133,6 +129,7 @@ public class Legume : MonoBehaviour
         else
 			if(_state == 3)
 				return -Mathf.FloorToInt(_catalyse*_recolte);
+		//*/
 		return 0;
     }
 

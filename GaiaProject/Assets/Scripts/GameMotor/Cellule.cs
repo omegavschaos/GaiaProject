@@ -24,19 +24,18 @@ public class Cellule : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.Space)) {
-			_quality++;
-		}
 	}
 
 	public void Planter(LegumeManager.Type type)
     {
-		GameObject legumePrefab = LegumeManager.GetInstance ().GetLegumePrefab (type);
-		GameObject legume = Instantiate(legumePrefab);
-		legume.name = type.ToString ();
-		legume.transform.SetParent (LegumePosition,false);
+		if (!Legume) {
+			GameObject legumePrefab = LegumeManager.GetInstance ().GetLegumePrefab (type);
+			GameObject legume = Instantiate (legumePrefab);
+			legume.name = type.ToString ();
+			legume.transform.SetParent (LegumePosition, false);
 
-		Legume = legume.GetComponent<Legume> ();
+			Legume = legume.GetComponent<Legume> ();
+		}
     }
 
     public void Supprimer()
@@ -91,8 +90,8 @@ public class Cellule : MonoBehaviour
     {
 		if (Legume)
 			Recolter ();
-		else 
-			Planter (LegumeManager.Type.Tomate);
+		//else 
+		//	Planter (LegumeManager.Type.Tomate);
     }
 
 

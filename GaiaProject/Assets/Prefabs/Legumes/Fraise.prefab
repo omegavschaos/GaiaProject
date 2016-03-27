@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21215812}
   - 114: {fileID: 11411734}
   m_Layer: 0
-  m_Name: Radis
+  m_Name: Fraise
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,17 +48,17 @@ MonoBehaviour:
   MidLife: 5
   FullLife: 10
   Death: 5
-  Type: 1
+  Type: 4
   OnState:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Engine.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   _state: 0
-  State0: {fileID: 21300000, guid: fdd6cbfa84dec5a43a1f5fad5d9dc674, type: 3}
-  State1: {fileID: 21300000, guid: 2a7f2dc1476590a4dbf74b21177054b4, type: 3}
-  State2: {fileID: 21300000, guid: 2583375cdbc715e4498bade548d0a59e, type: 3}
-  State3: {fileID: 21300000, guid: 99bccd7c2b073b746bcd335c9c981c1f, type: 3}
+  State0: {fileID: 21300000, guid: 9d76526201a0e294aa7b46dcffe16036, type: 3}
+  State1: {fileID: 21300000, guid: 3a36cf4aa4ae62d4b9d69b7f5994c0eb, type: 3}
+  State2: {fileID: 21300000, guid: 05d45f2721eb8d943b6cd2dbabaec086, type: 3}
+  State3: {fileID: 21300000, guid: 78f05b2d7ca6c97459f639977afcf54b, type: 3}
 --- !u!212 &21215812
 SpriteRenderer:
   m_ObjectHideFlags: 1
