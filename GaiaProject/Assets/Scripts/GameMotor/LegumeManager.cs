@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LegumeManager : MonoBehaviour
 {
@@ -9,9 +10,13 @@ public class LegumeManager : MonoBehaviour
 
     public enum Type
     {
-        Tomate,Radis,Absynthe,Aromatique,Fraise, Abricot, PommeDeTerre
-    } 
+        Tomate,Radis,Absynthe,Aromatique,Fraise, Abricot, Pomme, PommeDeTerre
+    }
 
+    [SerializeField]
+    private List<GameObject> _legumesPrefab;
+
+    private Dictionary<Type, GameObject> _legumesDictionary; 
 
 	// Use this for initialization
 	void Start ()
@@ -19,6 +24,13 @@ public class LegumeManager : MonoBehaviour
         if(_instance)
             Destroy(_instance);
 	    _instance = this;
+
+        _legumesDictionary = new Dictionary<Type, GameObject>();
+	    foreach (var legume in _legumesPrefab)
+	    {
+	        Type type = legume.GetComponent<Legume>().Type;
+            _legumesDictionary.Add(type,legume);
+	    }
 	}
 	
 	// Update is called once per frame
@@ -26,6 +38,10 @@ public class LegumeManager : MonoBehaviour
 	
 	}
 
+    public GameObject GetLegumePrefab(Type type)
+    {
+        return _legumesDictionary[type];
+    }
 
     public static LegumeManager GetInstance()
     {

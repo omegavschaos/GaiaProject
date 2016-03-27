@@ -5,21 +5,27 @@ using UnityEngine.SceneManagement;
 public class Grille : MonoBehaviour
 {
 
+    private static Grille _instance = null;
+
 
     [SerializeField]
     private GameObject _prefabTerrain;
 
-    public int Largeur = 5;
+    public int Largeur = 6;
     public int Longueur = 5;
+    
 
-    private int _taille = 10;
 
     private Cellule[,] _matrice;  
 
     // Use this for initialization
     void Start () {
 
-	    GenerateTerrain();
+        if (_instance)
+            Destroy(_instance);
+        _instance = this;
+
+        GenerateTerrain();
 	}
 
     private void GenerateTerrain()
@@ -34,14 +40,23 @@ public class Grille : MonoBehaviour
                 cell.transform.SetParent(gameObject.transform,false);
                 cell.transform.localScale = new Vector3(x: 1/(float)Largeur, y: 0.1f, z: 1/(float)Longueur);
                 cell.name = "cellule " + i + " " + j;
+                
                 _matrice[i,j] = cell.GetComponent<Cellule>();
+                _matrice[i,j].Position = new KeyValuePair<int, int>(i,j);
                 cell.transform.localPosition += diffVector3 + i * 1/(float)Largeur * cell.transform.right + j * 1/(float)Longueur * cell.transform.forward;
             }
         }
 
     }
 
-	// Update is called once per frame
+    public Cellule GetCellule(int x, int y)
+    {
+        if (x >= 0 && y >= 0 && x < Largeur && y < Longueur)
+            return _matrice[x, y];
+        return null;
+    }
+
+    // Update is called once per frame
 	void Update () {
 	
 	}

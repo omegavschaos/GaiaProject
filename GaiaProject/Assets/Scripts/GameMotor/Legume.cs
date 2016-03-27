@@ -7,12 +7,20 @@ public class Legume : MonoBehaviour
     [SerializeField]
     private float _catalyse = 1;
 
+    [SerializeField]
+    private int _nbMaxRecolte = 3;
+    [SerializeField]
+    private int _nbRecolte;
+    [SerializeField]
+    private int _recolte = 5;
+
     public float LittleLife = 5;
     public float MidLife = 5;
     public float FullLife = 10;
     public float Death = 5;
 
     public LegumeManager.Type Type;
+
     [SerializeField]
     private int _state = 0;
 
@@ -27,18 +35,26 @@ public class Legume : MonoBehaviour
     [SerializeField]
     private Sprite State3;
 
-    private float TimeSeed;
+    private float _timeState;
 
 	// Use this for initialization
 	void Start ()
-	{
-	    TimeSeed = Time.time;
-	    _spriteRenderer = GetComponent<SpriteRenderer>();
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        Reset();
+    }
+
+    void Reset()
+    {
+        _nbRecolte = _nbMaxRecolte;
+        _timeState = 0;
         _spriteRenderer.sprite = State0;
     }
-	
+
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+	    _timeState += _catalyse*Time.deltaTime;
         StateManage();
 	}
 
@@ -47,9 +63,10 @@ public class Legume : MonoBehaviour
 
         if (_state < 1)
         {
-            if (TimeSeed + LittleLife < Time.time)
+            if (_timeState > LittleLife)
             {
                 _spriteRenderer.sprite = State1;
+                _timeState = 0;
                 _state ++;
                 return;
             }
@@ -58,9 +75,10 @@ public class Legume : MonoBehaviour
 
         if (_state < 2)
         {
-            if (TimeSeed + LittleLife + MidLife < Time.time)
+            if (_timeState > MidLife)
             {
                 _spriteRenderer.sprite = State2;
+                _timeState = 0;
                 _state ++;
                 return;
             }
@@ -69,20 +87,33 @@ public class Legume : MonoBehaviour
 
         if (_state < 3)
         {
-            if (TimeSeed + LittleLife + MidLife + FullLife < Time.time)
+            if (_timeState > FullLife)
             {
                 _spriteRenderer.sprite = State3;
+                _timeState = 0;
                 _state++;
                 return;
             }
             return;
         }
-        
-        if (TimeSeed + LittleLife + MidLife + FullLife +Death < Time.time)
+
+        if (_timeState > Death)
         {
             _spriteRenderer.sprite = State0;
-            TimeSeed = Time.time;
+            _timeState = 0;
             _state = 0;
         }
     }
+
+    public int Recolter()
+    {
+        if (_state == 2)
+        {
+            Destroy(gameObject);
+            return Mathf.FloorToInt(_catalyse*_recolte);
+        }
+        else
+            return -1;
+    }
+
 }
