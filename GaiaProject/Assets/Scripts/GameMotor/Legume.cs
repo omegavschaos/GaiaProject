@@ -23,7 +23,7 @@ public class Legume : MonoBehaviour
 	
 
     [SerializeField]
-	private LegumeManager.State _state = LegumeManager.State.Graine;
+	private int _state = 0;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -48,7 +48,7 @@ public class Legume : MonoBehaviour
     void Reset()
     {
         //_nbRecolte = _nbMaxRecolte;
-		_state = LegumeManager.State.Graine;
+		_state = 0;
         _spriteRenderer.sprite = State0;
     }
 
@@ -62,8 +62,8 @@ public class Legume : MonoBehaviour
     void StateManage()
     {
 		
-		/*/
-		if (_state == LegumeManager.State.Graine)
+		//*/
+		if (_state <1)
         {
             if (_timeState > LittleLife)
             {
