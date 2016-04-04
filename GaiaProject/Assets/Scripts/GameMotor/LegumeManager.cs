@@ -3,136 +3,200 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class LegumeManager : MonoBehaviour
+
+namespace LegumeEngine
 {
-
-    private static LegumeManager _instance = null;
-
-    public enum Type
+    public class LegumeManager : MonoBehaviour, ISerializationCallbackReceiver
     {
-        Tomate,Radis,Absynthe,Aromatique,Fraise, Abricot, Pomme, PommeDeTerre, Haricot, Compost
-	}
 
-	public class Buff{
-		public int Distance;
-		public int Effect;
-		public List<LegumeManager.Type> Targets;
+        private static LegumeManager _instance = null;
 
-		public Buff(int effect, int distance, List<LegumeManager.Type> targets){
-			Distance = distance;
-			Effect = effect;
-			Targets = targets;
-		}
-	}
+        public enum Type
+        {
+            Tomate,
+            Radis,
+            Absynthe,
+            Aromatique,
+            Fraise,
+            Abricot,
+            Pomme,
+            PommeDeTerre,
+            Haricot,
+            Compost
+        }
 
-	public enum State{
-		Pourri, Recolte, Graine, Pousse
-	}
+        [Serializable]
+        public class Buff 
+        {
+            public int Distance;
+            public int Effect;
+            public List<LegumeManager.Type> Targets;
 
-	public class Calendar : List<State>{
-		public Calendar(int mGraine,int mPousse,int mRecolte, int mPourri){
-			this.Capacity = 12;
-			if(mPousse<mGraine){
-				mPousse += 12;
-				mRecolte += 12;
-				mPourri += 12;
-			}
-			if(mRecolte<mGraine){
-				mRecolte += 12;
-				mPourri += 12;
-			}
-			if(mPourri<mGraine){
-				mPourri += 12;
-			}
-			
-			for(int i = mGraine;i<mPousse; i++){
-				this[i%12] = State.Graine;
-			}
-			for(int i = mPousse;i<mRecolte; i++){
-				this[i%12] = State.Recolte;
-			}
-			for(int i = mRecolte;i<mPourri; i++){
-				this[i%12] = State.Recolte;
-			}
-			for(int i = mPourri;i<mGraine; i++){
-				this[i%12] = State.Pourri;
-			}
+            public Buff(int effect, int distance, List<LegumeManager.Type> targets)
+            {
+                Distance = distance;
+                Effect = effect;
+                Targets = targets;
+            }
+        }
 
-		}
-	}
+        public enum State
+        {
+            Graine = 0,
+            Pousse = 1,
+            Recolte = 2,
+            Pourri = 3
+        }
 
+        /*/
+        [Serializable]
+        public class Calendar : List<State>
+        {
+            public Calendar(int mGraine, int mPousse, int mRecolte, int mPourri)
+            {
+                this.Capacity = 12;
+                if (mPousse < mGraine)
+                {
+                    mPousse += 12;
+                    mRecolte += 12;
+                    mPourri += 12;
+                }
+                if (mRecolte < mGraine)
+                {
+                    mRecolte += 12;
+                    mPourri += 12;
+                }
+                if (mPourri < mGraine)
+                {
+                    mPourri += 12;
+                }
 
-	public Dictionary<Type, int> _legumeProduct;
-	public Dictionary<Type, List<Buff>> _legumeBuff;
-	public Dictionary<Type, Calendar> _legumeCalendar;
+                for (int i = mGraine; i < mPousse; i++)
+                {
+                    this[i % 12] = State.Graine;
+                }
+                for (int i = mPousse; i < mRecolte; i++)
+                {
+                    this[i % 12] = State.Recolte;
+                }
+                for (int i = mRecolte; i < mPourri; i++)
+                {
+                    this[i % 12] = State.Recolte;
+                }
+                for (int i = mPourri; i < mGraine; i++)
+                {
+                    this[i % 12] = State.Pourri;
+                }
 
-    [SerializeField]
-    private List<GameObject> _legumesPrefab;
+            }
+        }
+        //*/
 
-    private Dictionary<Type, GameObject> _legumesDictionary; 
-	public Dictionary<Type, int> Stock;
+        [Serializable]
+        public struct LegumeStruct
+        {
+            public GameObject m_Prefab;
+            public List<Sprite> m_Sprites;
+            public int m_Product;
+            public List<Buff> m_Buffs;
+            public List<State> m_Calendar;
+        }
 
-	// Use this for initialization
-	void Start ()
-	{
-        if(_instance)
-            Destroy(_instance);
-	    _instance = this;
+        [Serializable]
+        public struct TypeLegumePair
+        {
+            public Type type;
+            public LegumeStruct legume;
+        }
 
-        _legumesDictionary = new Dictionary<Type, GameObject>();
-	    foreach (var legume in _legumesPrefab)
-	    {
-	        Type type = legume.GetComponent<Legume>().Type;
-            _legumesDictionary.Add(type,legume);
-	    }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+        public List<TypeLegumePair> m_LegumesDictionary; 
+            
 
-	void Init(){
-		Type type;
-		int dist;
-		List<Type> targets;
-		Buff buff;
-		List<Type> deTargets;
-		Buff deBuff;
-		List<Buff> buffs;
-		Calendar calendar;
+        private Dictionary<Type, LegumeStruct> _legumesDictionary;
+        //TODO Stock
+        public Dictionary<Type, int> Stock;
 
-		//TOMATE
-		type = Type.Tomate;
+        // Use this for initialization
+        private void Start()
+        {
+            if (_instance)
+                Destroy(_instance);
+            _instance = this;
+            if (_legumesDictionary == null)
+                _legumesDictionary = new Dictionary<Type, LegumeStruct>();
+        }
 
-		dist = 2;
-		targets = new List<Type> ();
-		targets.Add (Type.Radis);
+        // Update is called once per frame
+        private void Update()
+        {
 
-		buff = new Buff (1, dist, targets);
-		buffs = new List<Buff> ();
+        }
 
-		buffs.Add (buff);
+        /// <summary>
+        /// Deprecated
+        /// </summary>
+        private void Init()
+        {
+            /*/
+            Type type;
+            int dist;
+            List<Type> targets;
+            Buff buff;
+            List<Type> deTargets;
+            Buff deBuff;
+            List<Buff> buffs;
+            Calendar calendar;
 
-		deTargets = new List<Type> ();
-		deTargets.Add (Type.PommeDeTerre);
-		deTargets.Add (Type.Abricot);
-		deBuff = new Buff (-1, 2, deTargets);
+            //*TOMATE
+            type = Type.Tomate;
 
-		buffs.Add (deBuff);
+            dist = 2;
+            targets = new List<Type>();
+            targets.Add(Type.Radis);
 
-		_legumeProduct.Add (type, 8);
-		_legumeBuff.Add (type, buffs);
-		//_legumeCalendar.Add (type,new Calendar ());
-	}
+            buff = new Buff(1, dist, targets);
+            buffs = new List<Buff>();
 
-    public GameObject GetLegumePrefab(Type type)
-    {
-        return _legumesDictionary[type];
-    }
+            buffs.Add(buff);
 
-    public static LegumeManager GetInstance()
-    {
-        return _instance;
+            deTargets = new List<Type>();
+            deTargets.Add(Type.PommeDeTerre);
+            deTargets.Add(Type.Abricot);
+            deBuff = new Buff(-1, 2, deTargets);
+
+            buffs.Add(deBuff);
+
+            _legumeProduct.Add(type, 8);
+            _legumeBuff.Add(type, buffs);
+            //SAISON CLASSIQUE
+            _legumeCalendar.Add(type, new Calendar(11, 2, 5, 8));
+            //*/
+        }
+
+        public LegumeStruct GetLegumeInfo(Type type)
+        {
+            return _legumesDictionary[type];
+        }
+
+        public static LegumeManager GetInstance()
+        {
+            return _instance;
+        }
+
+        public void OnBeforeSerialize()
+        {
+        }
+
+        public void OnAfterDeserialize()
+        {
+
+            if (_legumesDictionary == null)
+                _legumesDictionary = new Dictionary<Type, LegumeStruct>();
+
+            foreach (var pair in m_LegumesDictionary)
+            {
+                _legumesDictionary[pair.type] = pair.legume;
+            }
+        }
     }
 }

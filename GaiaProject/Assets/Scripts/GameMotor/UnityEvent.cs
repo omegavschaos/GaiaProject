@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System;
+using LegumeEngine;
 
 namespace Engine
 {
-	[Serializable]
+    [Serializable]
+    public class StateEvent : UnityEvent<LegumeManager.State> { };
+
+    [Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
 
 	[Serializable]
@@ -15,6 +19,7 @@ namespace Engine
 
 	[Serializable]
 	public class IntEvent : UnityEvent<int> { }
+    
 
 	[Serializable]
 	public class Vector3Event : UnityEvent<Vector3> { }
