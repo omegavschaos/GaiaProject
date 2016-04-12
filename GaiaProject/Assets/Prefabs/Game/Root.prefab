@@ -232,8 +232,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133812}
-  m_LocalRotation: {x: 0.56640625, y: 0, z: 0, w: 0.8241262}
-  m_LocalPosition: {x: 0, y: 0, z: -1.43}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 483422}
@@ -360,7 +360,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3e336d1bbfc9c674587c209569841da8, type: 2}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -465,7 +465,103 @@ MonoBehaviour:
       - Distance: 4
         Effect: -1
         Targets: 0700000005000000
-      m_Calendar: 030000000300000000000000000000000000000001000000010000000100000002000000020000000200000003000000
+      m_Calendar: 030000000000000000000000000000000000000000000000010000000200000002000000020000000300000003000000
+  - type: 1
+    legume:
+      m_Prefab: {fileID: 179056, guid: 1fcfb947300167946bab677e7805dd5f, type: 2}
+      m_Sprites:
+      - {fileID: 21300000, guid: fdd6cbfa84dec5a43a1f5fad5d9dc674, type: 3}
+      - {fileID: 21300000, guid: 2a7f2dc1476590a4dbf74b21177054b4, type: 3}
+      - {fileID: 21300000, guid: 2583375cdbc715e4498bade548d0a59e, type: 3}
+      - {fileID: 21300000, guid: 99bccd7c2b073b746bcd335c9c981c1f, type: 3}
+      m_Product: 4
+      m_Buffs: []
+      m_Calendar: 020000000200000003000000030000000300000000000000000000000000000001000000020000000200000002000000
+  - type: 2
+    legume:
+      m_Prefab: {fileID: 179056, guid: 5bc1951aee3f511409e51b6012e635c2, type: 2}
+      m_Sprites:
+      - {fileID: 21300000, guid: 792ffc1d39f012e458d924f4fd5df5de, type: 3}
+      - {fileID: 21300000, guid: 0ef3c707338427046aa510b478d00a0c, type: 3}
+      - {fileID: 21300000, guid: 5a901ca7178c4d34a9f1646be55180d5, type: 3}
+      - {fileID: 21300000, guid: 13b3874ed1c0e624396bb0362937c0bb, type: 3}
+      m_Product: 2
+      m_Buffs: []
+      m_Calendar: 010000000100000001000000010000000200000002000000020000000200000003000000000000000000000001000000
+  - type: 3
+    legume:
+      m_Prefab: {fileID: 179056, guid: 30198b9d47160cd488a77768cd37d493, type: 2}
+      m_Sprites:
+      - {fileID: 21300000, guid: ecfd863299faedc4bb7b7b4c2ffe1771, type: 3}
+      - {fileID: 21300000, guid: 06e09d3b97ed1bd4ea75effef73b6f80, type: 3}
+      - {fileID: 21300000, guid: 9b806ea6bf7d8d3409693044636ba1e1, type: 3}
+      - {fileID: 21300000, guid: fb8255359adef504a821fc3286758d60, type: 3}
+      m_Product: 4
+      m_Buffs: []
+      m_Calendar: 000000000000000001000000020000000200000002000000020000000200000002000000030000000300000000000000
+  - type: 4
+    legume:
+      m_Prefab: {fileID: 179056, guid: 5c5d7ad3d93f1784a9c57b4a91341718, type: 2}
+      m_Sprites:
+      - {fileID: 21300000, guid: 9d76526201a0e294aa7b46dcffe16036, type: 3}
+      - {fileID: 21300000, guid: 3a36cf4aa4ae62d4b9d69b7f5994c0eb, type: 3}
+      - {fileID: 21300000, guid: 05d45f2721eb8d943b6cd2dbabaec086, type: 3}
+      - {fileID: 21300000, guid: 78f05b2d7ca6c97459f639977afcf54b, type: 3}
+      m_Product: 4
+      m_Buffs:
+      - Distance: 2
+        Effect: 2
+        Targets: 08000000
+      m_Calendar: 010000000100000002000000020000000200000002000000020000000300000000000000000000000000000001000000
+  - type: 5
+    legume:
+      m_Prefab: {fileID: 179056, guid: 45c1e10981be9d64db85bdbf2ee747f5, type: 2}
+      m_Sprites:
+      - {fileID: 21300000, guid: bb5a699c38e164c44b99a2276ccfb02a, type: 3}
+      - {fileID: 21300000, guid: 34b72e53b1abbdf43a7c9b0c25983fd5, type: 3}
+      - {fileID: 21300000, guid: 5d4c9f7b8c11a0c40a91cd5bb13163f6, type: 3}
+      - {fileID: 21300000, guid: a163239d4d8a19a4aac1d08a480a9d4e, type: 3}
+      m_Product: 8
+      m_Buffs:
+      - Distance: 2
+        Effect: -1
+        Targets: 00000000
+      m_Calendar: 000000000000000000000000000000000100000002000000020000000200000003000000000000000000000000000000
+  - type: 7
+    legume:
+      m_Prefab: {fileID: 179056, guid: e3d5542fb07ff614eae726de25874813, type: 2}
+      m_Sprites:
+      - {fileID: 21300000, guid: ece7aab0122d9644b982a6ac41c914c0, type: 3}
+      - {fileID: 21300000, guid: b42b7cfcb78080d4fbd7cd15ba3c0f7a, type: 3}
+      - {fileID: 21300000, guid: af3f409dfb81676439997758f32955cf, type: 3}
+      - {fileID: 21300000, guid: ee10c8f00f79e8d46b2eb65902b5a527, type: 3}
+      m_Product: 8
+      m_Buffs:
+      - Distance: 2
+        Effect: 2
+        Targets: 08000000
+      m_Calendar: 020000000300000000000000000000000100000001000000010000000100000002000000020000000200000002000000
+  - type: 8
+    legume:
+      m_Prefab: {fileID: 179056, guid: 81047568ae2654a4cb7aa9f23d5defe2, type: 2}
+      m_Sprites:
+      - {fileID: 21300000, guid: 9487f6fa36923a743958d014632da325, type: 3}
+      - {fileID: 21300000, guid: 0f3469f1c1e337747bbcd0bcba43c30a, type: 3}
+      - {fileID: 21300000, guid: 717531f56f94352449024ddb0b3a72a8, type: 3}
+      - {fileID: 21300000, guid: fea88ac415096f240a902104c89c7509, type: 3}
+      m_Product: 4
+      m_Buffs:
+      - Distance: 2
+        Effect: -2
+        Targets: 03000000
+      m_Calendar: 030000000300000003000000000000000000000000000000010000000200000002000000020000000300000003000000
+  - type: 9
+    legume:
+      m_Prefab: {fileID: 0}
+      m_Sprites: []
+      m_Product: 0
+      m_Buffs: []
+      m_Calendar: 
 --- !u!114 &11487310
 MonoBehaviour:
   m_ObjectHideFlags: 1
