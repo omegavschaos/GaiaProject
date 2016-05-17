@@ -5565,9 +5565,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2095260868}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.57, z: 0}
-  m_LocalScale: {x: 5.6507993, y: 4.8299975, z: 4.8299975}
+  m_LocalRotation: {x: 0.56640625, y: 0, z: 0, w: 0.8241262}
+  m_LocalPosition: {x: 0, y: 0, z: -1.43}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 590378592}
   - {fileID: 1570716876}
@@ -5613,15 +5613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871192b7190827340a6e871ee64a7857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _legumesPrefab:
-  - {fileID: 179056, guid: b000190a01bf6844ab7c45ce04186b7d, type: 2}
-  - {fileID: 179056, guid: 1fcfb947300167946bab677e7805dd5f, type: 2}
-  - {fileID: 179056, guid: e3d5542fb07ff614eae726de25874813, type: 2}
-  - {fileID: 179056, guid: 81047568ae2654a4cb7aa9f23d5defe2, type: 2}
-  - {fileID: 179056, guid: 5c5d7ad3d93f1784a9c57b4a91341718, type: 2}
-  - {fileID: 179056, guid: 30198b9d47160cd488a77768cd37d493, type: 2}
-  - {fileID: 179056, guid: 5bc1951aee3f511409e51b6012e635c2, type: 2}
-  - {fileID: 179056, guid: 45c1e10981be9d64db85bdbf2ee747f5, type: 2}
+  m_LegumesDictionary: []
 --- !u!1 &2134900486
 GameObject:
   m_ObjectHideFlags: 0

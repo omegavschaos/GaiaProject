@@ -13,19 +13,18 @@ namespace LegumeEngine
         [SerializeField] private float _catalyse = 1;
 
         /*/
-    [SerializeField]
-    private int _recolte = 5;
+        [SerializeField]
+        private int _recolte = 5;
 
-	public int LittleLife = 5;
-	public int MidLife = 5;
-	public int FullLife = 5;
-	public int Death = 5;
-    //*/
+	    public int LittleLife = 5;
+	    public int MidLife = 5;
+	    public int FullLife = 5;
+	    public int Death = 5;
+        //*/
 
         public LegumeManager.Type Type;
 
         public Engine.StateEvent OnState;
-
 
 
         [SerializeField]
@@ -33,7 +32,7 @@ namespace LegumeEngine
 
         public Cellule M_Cellule;
         private SpriteRenderer _spriteRenderer;
-
+        private List<Cellule.Buff> _activeBuffs;
         /*/
         [SerializeField] private Sprite State1;
         [SerializeField] private Sprite State2;
@@ -47,7 +46,9 @@ namespace LegumeEngine
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             SaisonTime.GetInstance().SaisonChangeMonthChangeEvent.AddListener(ChangeMonth);
-            
+
+            _activeBuffs = new List<Cellule.Buff>();
+
             Reset();
         }
 
@@ -91,6 +92,8 @@ namespace LegumeEngine
 
         private void OnGrow(int nb)
         {
+            StopAllCoroutines();
+
             LegumeManager.State currentState = _state;
             _state = (LegumeManager.State)((int)(_state + nb) % 4);
             Debug.Log(M_Cellule + " OnGrow : " + currentState + " => " +  _state);
@@ -116,32 +119,53 @@ namespace LegumeEngine
 
         private void OnChangeStateGraine()
         {
-
+            Bufferise(false);
+            StartCoroutine(UpdateGraine());
         }
+        IEnumerator UpdateGraine()
+        {
+            yield return true;
+        }
+
         private void OnChangeStatePousse()
         {
-
+            Bufferise(true);
+            StartCoroutine(UpdatePousse());
         }
+        IEnumerator UpdatePousse()
+        {
+            yield return true;
+        }
+
         private void OnChangeStateRecolte()
         {
+            StartCoroutine(UpdateRecolte());
 
         }
-
+        IEnumerator UpdateRecolte()
+        {
+            yield return true;
+        }
         private void OnChangeStatePourri()
         {
-
+            StartCoroutine(UpdatePourri());
+        }
+        IEnumerator UpdatePourri()
+        {
+            yield return true;
         }
 
 
         private void Reset()
         {
             //_nbRecolte = _nbMaxRecolte;
-            _state = LegumeManager.State.Graine;
+            //_state = LegumeManager.State.Graine;
             //_spriteRenderer.sprite = State0;
         }
 
         private void OnDestroy()
         {
+            Bufferise(false);
             SaisonTime.GetInstance().SaisonChangeMonthChangeEvent.RemoveListener(ChangeMonth);
         }
 
@@ -152,7 +176,24 @@ namespace LegumeEngine
             //StateManage();
         }
 
-
+        private void Bufferise(bool active)
+        {
+            if(active)
+                foreach (var buffInfo in LegumeManager.GetInstance().GetLegumeInfo(Type).m_Buffs)
+                {
+                    Cellule.Buff buff = new Cellule.Buff(buffInfo, this);
+                    _activeBuffs.Add(buff);
+                    M_Cellule.Bufferise(buff);
+                }
+            else
+            {
+                foreach (var buff in _activeBuffs)
+                {
+                    M_Cellule.UnBufferise(buff);
+                }
+                _activeBuffs.Clear();
+            }
+        }
 
         /// <summary>
         /// Deprecated

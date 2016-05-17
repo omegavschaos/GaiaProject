@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LegumeEngine
 {
@@ -11,15 +12,32 @@ namespace LegumeEngine
         public Legume Legume;
         [SerializeField] private Transform LegumePosition;
         [SerializeField] private float _quality = 1;
-        [SerializeField] private int _buff = 0;
+        //[SerializeField] private int _buff = 0;
 
 
+        [SerializeField]
         public KeyValuePair<int, int> Position;
+
+        [Serializable]
+        public class Buff
+        {
+            public LegumeManager.BuffInfo Info;
+            public Legume Origin;
+
+            public Buff(LegumeManager.BuffInfo info, Legume origin)
+            {
+                Info = info;
+                Origin = origin;
+            }
+        }
+
+        public List<Buff> buffList;
+
 
         // Use this for initialization
         private void Start()
         {
-
+            buffList = new List<Buff>();
         }
 
         // Update is called once per frame
@@ -88,9 +106,77 @@ namespace LegumeEngine
             return distX + distY;
         }
 
+
+        public void Bufferise(Buff buff)
+        {
+            int distance = buff.Info.Distance;
+
+            var celluleList = GetInRadius(distance);
+
+            foreach (var cell in celluleList)
+            {
+                cell.NewBuff(buff);
+            }
+        }
+
+        public void UnBufferise(Buff buff)
+        {
+            UnBuff(buff);
+            int distance = buff.Info.Distance;
+
+            var celluleList = GetInRadius(distance);
+
+            foreach (var cell in celluleList)
+            {
+                cell.UnBuff(buff);
+            }
+        }
+
+        public void NewBuff(Buff buff)
+        {
+            buffList.Add(buff);
+            GetComponentInChildren<SpriteRenderer>().color = Color.blue;
+        }
+
+        public void UnBuff(Buff buff)
+        {
+            buffList.Remove(buff);
+        }
+
+        public HashSet<Cellule> GetInRadius(int radius)
+        {
+            Cellule cellule;
+            HashSet<Cellule> resultList = new HashSet<Cellule> {this};
+
+            if (radius < 1)
+            {
+                return resultList;
+            }
+
+            cellule = Grille.GetInstance().GetCellule(Position.Key +1, Position.Value);
+            if (cellule)
+                resultList.UnionWith(cellule.GetInRadius(radius - 1));
+
+            cellule = Grille.GetInstance().GetCellule(Position.Key, Position.Value + 1);
+            if (cellule)
+                resultList.UnionWith(cellule.GetInRadius(radius - 1));
+
+            cellule = Grille.GetInstance().GetCellule(Position.Key - 1, Position.Value);
+            if (cellule)
+                resultList.UnionWith(cellule.GetInRadius(radius - 1));
+
+            cellule = Grille.GetInstance().GetCellule(Position.Key, Position.Value - 1);
+            if (cellule)
+                resultList.UnionWith(cellule.GetInRadius(radius - 1));
+
+            return resultList;
+        }
+
+        
+
         public int GetQuality()
         {
-            return Mathf.FloorToInt(_quality*Mathf.Pow(1.25f, _buff));
+            return 1;
         }
 
         private void OnMouseUp()

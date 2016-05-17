@@ -165,6 +165,7 @@ MonoBehaviour:
   Legume: {fileID: 0}
   LegumePosition: {fileID: 409708}
   _quality: 0
+  buffList: []
 --- !u!212 &21241962
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -191,7 +192,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a81fb21ad7d03524592cae1527396418, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 470b0c69eae9fb24db6b6fcc1ba6e9ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

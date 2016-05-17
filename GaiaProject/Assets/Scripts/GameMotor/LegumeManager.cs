@@ -26,18 +26,21 @@ namespace LegumeEngine
         }
 
         [Serializable]
-        public class Buff 
+        public class BuffInfo 
         {
             public int Distance;
             public int Effect;
             public List<LegumeManager.Type> Targets;
 
-            public Buff(int effect, int distance, List<LegumeManager.Type> targets)
+
+            public BuffInfo(int effect, int distance, List<LegumeManager.Type> targets)
             {
                 Distance = distance;
                 Effect = effect;
                 Targets = targets;
             }
+
+
         }
 
         public enum State
@@ -98,7 +101,7 @@ namespace LegumeEngine
             public GameObject m_Prefab;
             public List<Sprite> m_Sprites;
             public int m_Product;
-            public List<Buff> m_Buffs;
+            public List<BuffInfo> m_Buffs;
             public List<State> m_Calendar;
         }
 
@@ -141,10 +144,10 @@ namespace LegumeEngine
             Type type;
             int dist;
             List<Type> targets;
-            Buff buff;
+            BuffInfo buff;
             List<Type> deTargets;
-            Buff deBuff;
-            List<Buff> buffs;
+            BuffInfo deBuff;
+            List<BuffInfo> buffs;
             Calendar calendar;
 
             //*TOMATE
@@ -154,15 +157,15 @@ namespace LegumeEngine
             targets = new List<Type>();
             targets.Add(Type.Radis);
 
-            buff = new Buff(1, dist, targets);
-            buffs = new List<Buff>();
+            buff = new BuffInfo(1, dist, targets);
+            buffs = new List<BuffInfo>();
 
             buffs.Add(buff);
 
             deTargets = new List<Type>();
             deTargets.Add(Type.PommeDeTerre);
             deTargets.Add(Type.Abricot);
-            deBuff = new Buff(-1, 2, deTargets);
+            deBuff = new BuffInfo(-1, 2, deTargets);
 
             buffs.Add(deBuff);
 
